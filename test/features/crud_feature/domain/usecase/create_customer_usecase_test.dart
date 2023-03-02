@@ -67,5 +67,7 @@ main() {
     expect(res.error, "Error");
     //verify that customerRepository.createNewCustomer called in this scope
     verify(customerRepository.createNewCustomer(customerParams));
+    // Only the above method should be called and nothing more.
+    verifyNoMoreInteractions(customerRepository);
   });
 }
