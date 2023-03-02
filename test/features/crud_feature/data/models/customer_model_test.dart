@@ -1,3 +1,4 @@
+import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/models/customer_model.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/entities/customer_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
