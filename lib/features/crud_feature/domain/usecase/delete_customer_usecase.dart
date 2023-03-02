@@ -12,6 +12,7 @@ class DeleteCustomerUseCase extends UseCase<bool, int> {
 // `execute` function returns a future that contains the `RequestStatus`
   @override
   Future<RequestStatus<bool>> execute(int customerID) {
-    throw UnimplementedError();
+    // Calling the `deleteCustomer` method from `customerRepository` to delete a customer
+    return customerRepository.deleteCustomer(customerID);
   }
 }
