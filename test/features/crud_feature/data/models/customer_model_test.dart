@@ -13,8 +13,33 @@ main() {
       email: "m.kahtooei@gmail.com",
       bankAccountNumber: "123456789");
 
-//check if customer model is subclass of customer entity
+//customer data as map
+  Map<String, dynamic> mapCustomer = {
+    'id': 1,
+    'firstName': "Mohammad",
+    'lastName': "Kahtooei",
+    'dateOfBirth': 1677770996,
+    'phoneNumber': "+989179647448",
+    'email': "m.kahtooei@gmail.com",
+    'bankAccountNumber': "123456789"
+  };
+
+//test if customer model is subclass of customer entity
   test("should be a subclass of CustomerEntity", () {
     expect(customerModel, isA<CustomerEntity>());
+  });
+
+//test create model from Map
+  test('create model from Map', () {
+    final result = CustomerModel.fromMap(mapCustomer);
+    expect(result, isA<CustomerModel>());
+    expect(result.email, mapCustomer['email']);
+  });
+
+  //test convert model to Map
+  test('create model from Map', () {
+    final result = customerModel.toMap();
+    expect(result, isA<Map<String, dynamic>>());
+    expect(result['email'], customerModel.email);
   });
 }
