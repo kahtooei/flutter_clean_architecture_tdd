@@ -16,8 +16,8 @@ class CreateCustomerUseCase extends UseCase<CustomerEntity, CustomerParams> {
   // execute method to create a new customer.
   // It takes `CustomerParams` as a parameter and returns a `Future` of `RequestStatus<CustomerEntity>`.
   @override
-  Future<RequestStatus<CustomerEntity>> execute(CustomerParams params) {
+  Future<RequestStatus<CustomerEntity>> execute(CustomerParams customerParams) {
     // Call `createNewCustomer` method on `customerRepository` to create a new customer
-    return customerRepository.createNewCustomer(params);
+    return customerRepository.createNewCustomer(customerParams);
   }
 }
