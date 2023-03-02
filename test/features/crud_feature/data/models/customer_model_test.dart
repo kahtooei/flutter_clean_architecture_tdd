@@ -37,7 +37,7 @@ main() {
   });
 
   //test convert model to Map
-  test('create model from Map', () {
+  test('convert model to Map', () {
     final result = customerModel.toMap();
     expect(result, isA<Map<String, dynamic>>());
     expect(result['email'], customerModel.email);
