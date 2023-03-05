@@ -31,9 +31,21 @@ class CustomerRepositoryImpl extends CustomerRepository {
 
   @override
   Future<RequestStatus<CustomerEntity>> editCustomer(
-      int id, CustomerParams customerParams) {
-    // TODO: implement editCustomer
-    throw UnimplementedError();
+      int id, CustomerParams customerParams) async {
+    try {
+      // create a map contains customer info from the customer parameters and set its id
+      Map<String, dynamic> customerMap = customerParams.toMap();
+      customerMap['id'] = id;
+      //create customer model object from map
+      CustomerModel customer = CustomerModel.fromMap(customerMap);
+      // try to update the customer in the database
+      await localDataSource.updateCustomer(customer);
+      // return success with a customer entity created from returned data
+      return SuccessRequest<CustomerEntity>(customer);
+    } catch (e) {
+      // return failed request with error message
+      return FailedRequest(e.toString());
+    }
   }
 
   @override

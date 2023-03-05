@@ -59,6 +59,7 @@ void main() {
     var result = await customerRepositoryImpl.editCustomer(
         customerModel.id, customerParams);
     verify(customerLocalDataSource.updateCustomer(customerModel));
-    expect(result, isA<SuccessRequest<RequestStatus<CustomerEntity>>>());
+    expect(result, isA<SuccessRequest<CustomerEntity>>());
+    expect(result.response!.id, customerModel.id);
   });
 }
