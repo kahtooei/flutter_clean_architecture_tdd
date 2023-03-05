@@ -24,9 +24,16 @@ class CustomerRepositoryImpl extends CustomerRepository {
   }
 
   @override
-  Future<RequestStatus<bool>> deleteCustomer(int id) {
-    // TODO: implement deleteCustomer
-    throw UnimplementedError();
+  Future<RequestStatus<bool>> deleteCustomer(int id) async {
+    try {
+      // try to delete customer from database using the id
+      await localDataSource.deleteCustomer(id);
+      // return success with true value
+      return const SuccessRequest<bool>(true);
+    } catch (e) {
+      // return failed request with error message
+      return FailedRequest(e.toString());
+    }
   }
 
   @override
