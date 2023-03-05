@@ -52,4 +52,13 @@ void main() {
     verify(customerLocalDataSource.selectAllCustomers());
     expect(result, isA<SuccessRequest<List<CustomerEntity>>>());
   });
+
+  test("update customer info", () async {
+    when(customerLocalDataSource.updateCustomer(customerModel))
+        .thenAnswer((realInvocation) => Future.value());
+    var result = await customerRepositoryImpl.editCustomer(
+        customerModel.id, customerParams);
+    verify(customerLocalDataSource.updateCustomer(customerModel));
+    expect(result, isA<SuccessRequest<RequestStatus<CustomerEntity>>>());
+  });
 }
