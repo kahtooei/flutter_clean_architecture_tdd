@@ -79,11 +79,10 @@ class MockCustomerLocalDataSource extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> deleteCustomer(_i2.CustomerModel? customer) =>
-      (super.noSuchMethod(
+  _i4.Future<void> deleteCustomer(int? customerID) => (super.noSuchMethod(
         Invocation.method(
           #deleteCustomer,
-          [customer],
+          [customerID],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

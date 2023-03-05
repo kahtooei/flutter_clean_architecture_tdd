@@ -62,4 +62,13 @@ void main() {
     expect(result, isA<SuccessRequest<CustomerEntity>>());
     expect(result.response!.id, customerModel.id);
   });
+
+  test("delete customer from local database", () async {
+    when(customerLocalDataSource.deleteCustomer(customerModel.id))
+        .thenAnswer((realInvocation) => Future.value());
+    var result = await customerRepositoryImpl.deleteCustomer(customerModel.id);
+    verify(customerLocalDataSource.deleteCustomer(customerModel.id));
+    expect(result, isA<SuccessRequest<bool>>());
+    expect(result.response, true);
+  });
 }

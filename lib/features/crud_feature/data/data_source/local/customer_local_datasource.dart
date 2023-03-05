@@ -9,5 +9,5 @@ abstract class CustomerLocalDataSource {
   //update customer info
   Future<void> updateCustomer(CustomerModel customer);
   //delete customer from database
-  Future<void> deleteCustomer(CustomerModel customer);
+  Future<void> deleteCustomer(int customerID);
 }
