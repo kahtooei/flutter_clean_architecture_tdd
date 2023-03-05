@@ -1,4 +1,5 @@
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/data_source/local/customer_local_datasource.dart';
+import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/models/customer_model.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/entities/customer_entity.dart';
 import 'package:flutter_clean_architecture_tdd/core/resources/request_status.dart';
 import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart';
@@ -9,9 +10,17 @@ class CustomerRepositoryImpl extends CustomerRepository {
   CustomerRepositoryImpl(this.localDataSource);
   @override
   Future<RequestStatus<CustomerEntity>> createNewCustomer(
-      CustomerParams customerParams) {
-    // TODO: implement createNewCustomer
-    throw UnimplementedError();
+      CustomerParams customerParams) async {
+    try {
+      // try to insert customer parameters into local database
+      CustomerModel customer =
+          await localDataSource.insertCustomer(customerParams);
+      // return success with a customer entity created from returned data
+      return SuccessRequest<CustomerEntity>(customer);
+    } catch (e) {
+      // return failed request with error message
+      return FailedRequest(e.toString());
+    }
   }
 
   @override
