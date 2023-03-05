@@ -37,8 +37,17 @@ class CustomerRepositoryImpl extends CustomerRepository {
   }
 
   @override
-  Future<RequestStatus<List<CustomerEntity>>> getAllCustomers() {
-    // TODO: implement getAllCustomers
-    throw UnimplementedError();
+  Future<RequestStatus<List<CustomerEntity>>> getAllCustomers() async {
+    try {
+      // try to get a list of all customers from the database
+      List<CustomerModel> customerList =
+          await localDataSource.selectAllCustomers();
+
+      // return success with a list of customer entities
+      return SuccessRequest<List<CustomerEntity>>(customerList);
+    } catch (e) {
+      // return failed request with error message
+      return FailedRequest(e.toString());
+    }
   }
 }
