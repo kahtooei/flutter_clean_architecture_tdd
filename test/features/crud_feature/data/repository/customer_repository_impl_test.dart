@@ -3,6 +3,7 @@ import 'package:flutter_clean_architecture_tdd/core/resources/request_status.dar
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/data_source/local/customer_local_datasource.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/models/customer_model.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/repository/customer_repository_impl.dart';
+import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/entities/customer_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -40,7 +41,15 @@ void main() {
         .thenAnswer((realInvocation) => Future.value(customerModel));
     var result = await customerRepositoryImpl.createNewCustomer(customerParams);
     verify(customerLocalDataSource.insertCustomer(customerParams));
-    expect(result, isA<SuccessRequest>());
+    expect(result, isA<SuccessRequest<CustomerEntity>>());
     expect(result.response!.email, customerParams.email);
+  });
+
+  test("select all customers", () async {
+    when(customerLocalDataSource.selectAllCustomers())
+        .thenAnswer((realInvocation) => Future.value(<CustomerModel>[]));
+    var result = await customerRepositoryImpl.getAllCustomers();
+    verify(customerLocalDataSource.selectAllCustomers());
+    expect(result, isA<SuccessRequest<List<CustomerEntity>>>());
   });
 }
