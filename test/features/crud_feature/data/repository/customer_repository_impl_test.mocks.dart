@@ -3,12 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
+import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart'
+    as _i5;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/data_source/local/customer_local_datasource.dart'
-    as _i2;
+    as _i3;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/models/customer_model.dart'
-    as _i4;
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -22,53 +24,68 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeCustomerModel_0 extends _i1.SmartFake implements _i2.CustomerModel {
+  _FakeCustomerModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [CustomerLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCustomerLocalDataSource extends _i1.Mock
-    implements _i2.CustomerLocalDataSource {
+    implements _i3.CustomerLocalDataSource {
   MockCustomerLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> insertCustomer(_i4.CustomerModel? customer) =>
+  _i4.Future<_i2.CustomerModel> insertCustomer(_i5.CustomerParams? customer) =>
       (super.noSuchMethod(
         Invocation.method(
           #insertCustomer,
           [customer],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<_i2.CustomerModel>.value(_FakeCustomerModel_0(
+          this,
+          Invocation.method(
+            #insertCustomer,
+            [customer],
+          ),
+        )),
+      ) as _i4.Future<_i2.CustomerModel>);
   @override
-  _i3.Future<List<_i4.CustomerModel>> selectAllCustomers() =>
+  _i4.Future<List<_i2.CustomerModel>> selectAllCustomers() =>
       (super.noSuchMethod(
         Invocation.method(
           #selectAllCustomers,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i4.CustomerModel>>.value(<_i4.CustomerModel>[]),
-      ) as _i3.Future<List<_i4.CustomerModel>>);
+            _i4.Future<List<_i2.CustomerModel>>.value(<_i2.CustomerModel>[]),
+      ) as _i4.Future<List<_i2.CustomerModel>>);
   @override
-  _i3.Future<void> updateCustomer(_i4.CustomerModel? customer) =>
+  _i4.Future<void> updateCustomer(_i2.CustomerModel? customer) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCustomer,
           [customer],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
-  _i3.Future<void> deleteCustomer(_i4.CustomerModel? customer) =>
+  _i4.Future<void> deleteCustomer(_i2.CustomerModel? customer) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteCustomer,
           [customer],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

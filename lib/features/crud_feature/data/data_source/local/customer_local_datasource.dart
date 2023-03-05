@@ -1,8 +1,9 @@
+import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/data/models/customer_model.dart';
 
 abstract class CustomerLocalDataSource {
   //insert new customer to database
-  Future<void> insertCustomer(CustomerModel customer);
+  Future<CustomerModel> insertCustomer(CustomerParams customer);
   //get list of all customers
   Future<List<CustomerModel>> selectAllCustomers();
   //update customer info
