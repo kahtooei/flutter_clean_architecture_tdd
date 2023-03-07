@@ -55,7 +55,7 @@ void main() {
 
   test("update customer info", () async {
     when(customerLocalDataSource.updateCustomer(customerModel))
-        .thenAnswer((realInvocation) => Future.value());
+        .thenAnswer((realInvocation) => Future.value(customerModel));
     var result = await customerRepositoryImpl.editCustomer(
         customerModel.id, customerParams);
     verify(customerLocalDataSource.updateCustomer(customerModel));
@@ -65,7 +65,7 @@ void main() {
 
   test("delete customer from local database", () async {
     when(customerLocalDataSource.deleteCustomer(customerModel.id))
-        .thenAnswer((realInvocation) => Future.value());
+        .thenAnswer((realInvocation) => Future.value(true));
     var result = await customerRepositoryImpl.deleteCustomer(customerModel.id);
     verify(customerLocalDataSource.deleteCustomer(customerModel.id));
     expect(result, isA<SuccessRequest<bool>>());

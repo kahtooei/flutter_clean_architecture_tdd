@@ -9,9 +9,9 @@ abstract class CustomerLocalDataSource {
   //get list of all customers
   Future<List<CustomerModel>> selectAllCustomers();
   //update customer info
-  Future<void> updateCustomer(CustomerModel customer);
+  Future<CustomerModel> updateCustomer(CustomerModel customer);
   //delete customer from database
-  Future<void> deleteCustomer(int customerID);
+  Future<bool> deleteCustomer(int customerID);
 }
 
 class CustomerSqliteDB extends CustomerLocalDataSource {
@@ -53,7 +53,7 @@ class CustomerSqliteDB extends CustomerLocalDataSource {
   }
 
   @override
-  Future<void> deleteCustomer(int customerID) {
+  Future<bool> deleteCustomer(int customerID) {
     // TODO: implement deleteCustomer
     throw UnimplementedError();
   }
@@ -76,7 +76,7 @@ class CustomerSqliteDB extends CustomerLocalDataSource {
   }
 
   @override
-  Future<void> updateCustomer(CustomerModel customer) {
+  Future<CustomerModel> updateCustomer(CustomerModel customer) {
     // TODO: implement updateCustomer
     throw UnimplementedError();
   }

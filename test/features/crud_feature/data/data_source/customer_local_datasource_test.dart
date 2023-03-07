@@ -45,7 +45,7 @@ main() {
       phoneNumber: "00989179647448",
       email: "m.kahtooei@gmail.com",
       bankAccountNumber: "987456321");
-
+  int customerID = 1;
 //test create new customer in database
   test('Insert test', () async {
     var result = await localDataSource.insertCustomer(customerParams);
@@ -53,5 +53,13 @@ main() {
     expect(result, isA<CustomerModel>());
     expect(result.id, isA<int>());
     expect(result.email, customerParams.email);
+  });
+
+  //test remove customer from database
+  test('Delete test', () async {
+    var result = await localDataSource.deleteCustomer(customerID);
+    // Check content
+    expect(result, isA<bool>());
+    expect(result, true);
   });
 }

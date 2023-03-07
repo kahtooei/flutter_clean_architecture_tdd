@@ -69,22 +69,26 @@ class MockCustomerLocalDataSource extends _i1.Mock
             _i4.Future<List<_i2.CustomerModel>>.value(<_i2.CustomerModel>[]),
       ) as _i4.Future<List<_i2.CustomerModel>>);
   @override
-  _i4.Future<void> updateCustomer(_i2.CustomerModel? customer) =>
+  _i4.Future<_i2.CustomerModel> updateCustomer(_i2.CustomerModel? customer) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCustomer,
           [customer],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<_i2.CustomerModel>.value(_FakeCustomerModel_0(
+          this,
+          Invocation.method(
+            #updateCustomer,
+            [customer],
+          ),
+        )),
+      ) as _i4.Future<_i2.CustomerModel>);
   @override
-  _i4.Future<void> deleteCustomer(int? customerID) => (super.noSuchMethod(
+  _i4.Future<bool> deleteCustomer(int? customerID) => (super.noSuchMethod(
         Invocation.method(
           #deleteCustomer,
           [customerID],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 }
