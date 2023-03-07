@@ -53,9 +53,12 @@ class CustomerSqliteDB extends CustomerLocalDataSource {
   }
 
   @override
-  Future<bool> deleteCustomer(int customerID) {
-    // TODO: implement deleteCustomer
-    throw UnimplementedError();
+  Future<bool> deleteCustomer(int customerID) async {
+    await open();
+    await db.delete("customer", where: "id = $customerID");
+    await close();
+
+    return true;
   }
 
 // Insert data into the database
