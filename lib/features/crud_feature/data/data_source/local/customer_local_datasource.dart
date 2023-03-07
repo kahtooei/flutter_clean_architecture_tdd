@@ -79,8 +79,11 @@ class CustomerSqliteDB extends CustomerLocalDataSource {
   }
 
   @override
-  Future<CustomerModel> updateCustomer(CustomerModel customer) {
-    // TODO: implement updateCustomer
-    throw UnimplementedError();
+  Future<CustomerModel> updateCustomer(CustomerModel customer) async {
+    await open();
+    Map<String, dynamic> customerMap = customer.toMap();
+    await db.update("customer", customerMap, where: "id= ${customer.id}");
+    await close();
+    return customer;
   }
 }
