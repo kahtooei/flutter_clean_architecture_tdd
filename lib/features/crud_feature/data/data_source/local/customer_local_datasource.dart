@@ -73,9 +73,16 @@ class CustomerSqliteDB extends CustomerLocalDataSource {
   }
 
   @override
-  Future<List<CustomerModel>> selectAllCustomers() {
-    // TODO: implement selectAllCustomers
-    throw UnimplementedError();
+  Future<List<CustomerModel>> selectAllCustomers() async {
+    List<CustomerModel> customerList = [];
+    await open();
+    List<Map<String, dynamic>> customers =
+        await db.rawQuery("select * from customer where 1=1");
+    await close();
+    for (Map<String, dynamic> customer in customers) {
+      customerList.add(CustomerModel.fromMap(customer));
+    }
+    return customerList;
   }
 
   @override
