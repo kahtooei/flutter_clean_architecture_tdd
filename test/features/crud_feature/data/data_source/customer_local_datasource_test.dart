@@ -78,4 +78,10 @@ main() {
     expect(result, isA<CustomerModel>());
     expect(result.email, customerModel.email);
   });
+
+//test get all customers from database
+  test('Select All test', () async {
+    var result = await localDataSource.selectAllCustomers();
+    expect(result, isA<List<CustomerModel>>());
+  });
 }
