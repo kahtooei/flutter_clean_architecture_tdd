@@ -46,6 +46,14 @@ main() {
       email: "m.kahtooei@gmail.com",
       bankAccountNumber: "987456321");
   int customerID = 1;
+  CustomerModel customerModel = CustomerModel(
+      id: 1,
+      firstName: "Mohammad",
+      lastName: "Kahtooei",
+      dateOfBirth: DateTime(1992, 09, 14),
+      phoneNumber: "00989179647448",
+      email: "m.kahtooei@gmail.com",
+      bankAccountNumber: "987456321");
 //test create new customer in database
   test('Insert test', () async {
     var result = await localDataSource.insertCustomer(customerParams);
@@ -61,5 +69,13 @@ main() {
     // Check content
     expect(result, isA<bool>());
     expect(result, true);
+  });
+
+  //test edit customer info in database
+  test('Update test', () async {
+    var result = await localDataSource.updateCustomer(customerModel);
+    // Check content
+    expect(result, isA<CustomerModel>());
+    expect(result.email, customerModel.email);
   });
 }
