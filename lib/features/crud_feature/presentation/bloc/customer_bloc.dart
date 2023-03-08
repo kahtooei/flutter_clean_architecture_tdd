@@ -94,6 +94,13 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
             newStatus: FieldValidationErrorStatus(validation.error!)));
       }
     });
+
+    // Listen to GetAllCustomersEvent and emit a new state with a new status of CustomerLoadingStatus().
+    // Then call the getAllCustomers() method.
+    on<GetAllCustomersEvent>((event, emit) async {
+      emit(state.copyWith(newStatus: CustomerLoadingStatus()));
+      getAllCustomers();
+    });
   }
 
   // getAllCustomers is an asynchronous function that fetches the customers using the GetCustomersUseCase.

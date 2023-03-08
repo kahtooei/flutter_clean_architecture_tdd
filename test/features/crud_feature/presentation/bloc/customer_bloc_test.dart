@@ -222,7 +222,7 @@ void main() {
     );
 
     test("test calling methods", () async {
-      customerBloc.add(const GetAllCustomersEvent());
+      customerBloc.add(GetAllCustomersEvent());
       await untilCalled(getCustomers.execute());
       // await Future.delayed(const Duration(seconds: 5));
       verify(getCustomers.execute());

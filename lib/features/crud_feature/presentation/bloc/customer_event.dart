@@ -28,3 +28,9 @@ class EditCustomerEvent extends CustomerEvent {
   @override
   List<Object?> get props => [editCustomerParams];
 }
+
+//Event to get all customers from db
+class GetAllCustomersEvent extends CustomerEvent {
+  @override
+  List<Object?> get props => [];
+}
