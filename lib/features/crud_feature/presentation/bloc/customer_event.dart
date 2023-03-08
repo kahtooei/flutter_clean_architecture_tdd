@@ -12,3 +12,11 @@ class CreateNewCustomerEvent extends CustomerEvent {
   @override
   List<Object?> get props => [customerParams];
 }
+
+//Event to delete customer from database
+class DeleteCustomerEvent extends CustomerEvent {
+  final int customerID;
+  const DeleteCustomerEvent({required this.customerID});
+  @override
+  List<Object?> get props => [customerID];
+}

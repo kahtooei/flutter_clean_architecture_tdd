@@ -55,6 +55,21 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
             newStatus: FieldValidationErrorStatus(validation.error!)));
       }
     });
+
+    // Listen to DeleteCustomerEvent and emit a new state with a new status of CustomerLoadingStatus().
+    // Then execute the deleteCustomer use case with the provided customerID.
+    // If the request status is a SuccessRequest, call the getAllCustomers() method.
+    on<DeleteCustomerEvent>((event, emit) async {
+      emit(state.copyWith(newStatus: CustomerLoadingStatus()));
+      RequestStatus requestStatus =
+          await deleteCustomer.execute(event.customerID);
+      if (requestStatus is SuccessRequest) {
+        getAllCustomers();
+      } else {
+        emit(state.copyWith(
+            newStatus: CustomerErrorStatus(requestStatus.error!)));
+      }
+    });
   }
 
   // getAllCustomers is an asynchronous function that fetches the customers using the GetCustomersUseCase.
