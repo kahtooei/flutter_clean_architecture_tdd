@@ -3,7 +3,10 @@ import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usec
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/delete_customer_usecase.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/edit_customer_usecase.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/get_customer_usecase.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+
+import 'customer_bloc_test.mocks.dart';
 
 // Annotation to generate mock objects
 @GenerateMocks([
@@ -13,4 +16,15 @@ import 'package:mockito/annotations.dart';
   DeleteCustomerUseCase,
   GetCustomersUseCase
 ])
-void main() {}
+void main() {
+  late CustomerBlock customerBlock;
+  MockInputValidation inputValidation = MockInputValidation();
+  MockCreateCustomerUseCase createCustomer = MockCreateCustomerUseCase();
+  MockEditCustomersUseCase editCustomer = MockEditCustomersUseCase();
+  MockDeleteCustomerUseCase deleteCustomer = MockDeleteCustomerUseCase();
+  MockGetCustomersUseCase getCustomers = MockGetCustomersUseCase();
+  setUp(() {
+    customerBlock = CustomerBloc(inputValidation, createCustomer, editCustomer,
+        deleteCustomer, getCustomers);
+  });
+}
