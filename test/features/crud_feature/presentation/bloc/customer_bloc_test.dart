@@ -202,4 +202,30 @@ void main() {
           FieldValidationErrorStatus("invalid params"));
     });
   });
+
+//test get all customers event
+  group("get all customers bloc test", () {
+    setUp(() {
+      customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
+          deleteCustomer, getCustomers);
+      when(getCustomers.execute()).thenAnswer((_) =>
+          Future.value(SuccessRequest<List<CustomerEntity>>([customerEntity])));
+    });
+    blocTest(
+      "get customers",
+      build: () => customerBloc,
+      act: (CustomerBloc bloc) => bloc.add(GetAllCustomersEvent()),
+      expect: () => [
+        CustomerState(customerStatus: CustomerLoadingStatus()),
+        CustomerState(customerStatus: CustomerCompletedStatus([customerEntity]))
+      ],
+    );
+
+    test("test calling methods", () async {
+      customerBloc.add(const GetAllCustomersEvent());
+      await untilCalled(getCustomers.execute());
+      // await Future.delayed(const Duration(seconds: 5));
+      verify(getCustomers.execute());
+    });
+  });
 }
