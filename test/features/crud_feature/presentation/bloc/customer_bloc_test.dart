@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usec
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/edit_customer_usecase.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/get_customer_usecase.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/presentation/bloc/customer_bloc.dart';
+import 'package:flutter_clean_architecture_tdd/features/crud_feature/presentation/bloc/customer_status.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
@@ -18,14 +19,19 @@ import 'customer_bloc_test.mocks.dart';
   GetCustomersUseCase
 ])
 void main() {
-  late CustomerBloc customerBlock;
+  late CustomerBloc customerBloc;
   MockInputValidation inputValidation = MockInputValidation();
   MockCreateCustomerUseCase createCustomer = MockCreateCustomerUseCase();
   MockEditCustomersUseCase editCustomer = MockEditCustomersUseCase();
   MockDeleteCustomerUseCase deleteCustomer = MockDeleteCustomerUseCase();
   MockGetCustomersUseCase getCustomers = MockGetCustomersUseCase();
   setUp(() {
-    customerBlock = CustomerBloc(inputValidation, createCustomer, editCustomer,
+    customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
         deleteCustomer, getCustomers);
+  });
+
+//test initial state
+  test("initial state is Empty", () {
+    expect(customerBloc.state.customerStatus, EmptyCustomerStatus());
   });
 }
