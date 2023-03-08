@@ -1,4 +1,5 @@
 import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart';
+import 'package:flutter_clean_architecture_tdd/core/utils/presentation/fields_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
