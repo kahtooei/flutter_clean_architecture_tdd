@@ -6,14 +6,7 @@ main() {
   late ParamsValidation paramsValidation;
   late CustomerParams customerParams;
   setUp(() {
-    customerParams = CustomerParams(
-        firstName: "Mohammad",
-        lastName: "Kahtooei",
-        bankAccountNumber: "10985478566",
-        dateOfBirth: DateTime.now(),
-        email: "m.kahtooei@gmail.com",
-        phoneNumber: "00989179647448");
-    paramsValidation = ParamsValidation(customerParams);
+    paramsValidation = ParamsValidation();
   });
 
   group("valid params", () {
@@ -25,10 +18,10 @@ main() {
           dateOfBirth: DateTime.now(),
           email: "m.kahtooei@gmail.com",
           phoneNumber: "00989179647448");
-      paramsValidation = ParamsValidation(customerParams);
+      // paramsValidation = ParamsValidation(customerParams);
     });
     test("check valid parameters", () {
-      var result = paramsValidation.isValid;
+      var result = paramsValidation.checkValidation(customerParams);
       expect(result.status, true);
       expect(result.error, isA<Null>());
     });
@@ -43,10 +36,9 @@ main() {
           dateOfBirth: DateTime.now(),
           email: "m.kahtooei@gmail.com",
           phoneNumber: "00989179647448");
-      paramsValidation = ParamsValidation(customerParams);
     });
     test("check invalid name", () {
-      var result = paramsValidation.isValid;
+      var result = paramsValidation.checkValidation(customerParams);
       expect(result.status, false);
       expect(result.error, isA<String>());
     });
@@ -61,10 +53,9 @@ main() {
           dateOfBirth: DateTime.now(),
           email: "m.kahtooei",
           phoneNumber: "00989179647448");
-      paramsValidation = ParamsValidation(customerParams);
     });
     test("check invalid email", () {
-      var result = paramsValidation.isValid;
+      var result = paramsValidation.checkValidation(customerParams);
       expect(result.status, false);
       expect(result.error, isA<String>());
     });
@@ -79,10 +70,9 @@ main() {
           dateOfBirth: DateTime.now(),
           email: "m.kahtooei@gmail.com",
           phoneNumber: "+98");
-      paramsValidation = ParamsValidation(customerParams);
     });
     test("check invalid phone", () {
-      var result = paramsValidation.isValid;
+      var result = paramsValidation.checkValidation(customerParams);
       expect(result.status, false);
       expect(result.error, isA<String>());
     });
@@ -97,10 +87,9 @@ main() {
           dateOfBirth: DateTime.now(),
           email: "m.kahtooei@gmail.com",
           phoneNumber: "00989179647448");
-      paramsValidation = ParamsValidation(customerParams);
     });
     test("check invalid account number", () {
-      var result = paramsValidation.isValid;
+      var result = paramsValidation.checkValidation(customerParams);
       expect(result.status, false);
       expect(result.error, isA<String>());
     });

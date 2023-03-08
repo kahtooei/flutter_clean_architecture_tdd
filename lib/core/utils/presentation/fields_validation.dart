@@ -1,26 +1,25 @@
+import 'dart:math';
+
 import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart';
 
 abstract class Validation {
   final bool status;
-  Validation(this.status);
+  String? error;
+  Validation(this.status, {this.error});
 }
 
 abstract class InputValidation {
-  Validation get isValid;
+  Validation checkValidation(CustomerParams customerParams);
 }
 
 class ParamsValidationStatus extends Validation {
-  final String? error;
-  ParamsValidationStatus({required bool status, this.error}) : super(status);
+  ParamsValidationStatus({required bool status, String? error})
+      : super(status, error: error);
 }
 
 class ParamsValidation extends InputValidation {
-  final CustomerParams customerParams;
-  ParamsValidation(this.customerParams);
   @override
-  ParamsValidationStatus get isValid => _checkValidation();
-
-  ParamsValidationStatus _checkValidation() {
+  Validation checkValidation(CustomerParams customerParams) {
     if (!_isValidName(customerParams.firstName)) {
       return ParamsValidationStatus(status: false, error: "Invalid FirstName");
     }

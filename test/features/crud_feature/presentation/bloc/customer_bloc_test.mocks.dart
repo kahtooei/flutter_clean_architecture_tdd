@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart'
-    as _i8;
+    as _i5;
 import 'package:flutter_clean_architecture_tdd/core/params/edit_customer_params.dart'
     as _i10;
 import 'package:flutter_clean_architecture_tdd/core/resources/request_status.dart'
@@ -14,11 +14,11 @@ import 'package:flutter_clean_architecture_tdd/core/resources/request_status.dar
 import 'package:flutter_clean_architecture_tdd/core/utils/presentation/fields_validation.dart'
     as _i2;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/entities/customer_entity.dart'
-    as _i7;
+    as _i8;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/repository/customer_repository.dart'
     as _i3;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/create_customer_usecase.dart'
-    as _i5;
+    as _i6;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/delete_customer_usecase.dart'
     as _i11;
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/edit_customer_usecase.dart'
@@ -79,11 +79,18 @@ class MockInputValidation extends _i1.Mock implements _i2.InputValidation {
   }
 
   @override
-  _i2.Validation get isValid => (super.noSuchMethod(
-        Invocation.getter(#isValid),
+  _i2.Validation checkValidation(_i5.CustomerParams? customerParams) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkValidation,
+          [customerParams],
+        ),
         returnValue: _FakeValidation_0(
           this,
-          Invocation.getter(#isValid),
+          Invocation.method(
+            #checkValidation,
+            [customerParams],
+          ),
         ),
       ) as _i2.Validation);
 }
@@ -92,7 +99,7 @@ class MockInputValidation extends _i1.Mock implements _i2.InputValidation {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCreateCustomerUseCase extends _i1.Mock
-    implements _i5.CreateCustomerUseCase {
+    implements _i6.CreateCustomerUseCase {
   MockCreateCustomerUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -106,22 +113,22 @@ class MockCreateCustomerUseCase extends _i1.Mock
         ),
       ) as _i3.CustomerRepository);
   @override
-  _i6.Future<_i4.RequestStatus<_i7.CustomerEntity>> execute(
-          _i8.CustomerParams? customerParams) =>
+  _i7.Future<_i4.RequestStatus<_i8.CustomerEntity>> execute(
+          _i5.CustomerParams? customerParams) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [customerParams],
         ),
-        returnValue: _i6.Future<_i4.RequestStatus<_i7.CustomerEntity>>.value(
-            _FakeRequestStatus_2<_i7.CustomerEntity>(
+        returnValue: _i7.Future<_i4.RequestStatus<_i8.CustomerEntity>>.value(
+            _FakeRequestStatus_2<_i8.CustomerEntity>(
           this,
           Invocation.method(
             #execute,
             [customerParams],
           ),
         )),
-      ) as _i6.Future<_i4.RequestStatus<_i7.CustomerEntity>>);
+      ) as _i7.Future<_i4.RequestStatus<_i8.CustomerEntity>>);
 }
 
 /// A class which mocks [EditCustomersUseCase].
@@ -142,22 +149,22 @@ class MockEditCustomersUseCase extends _i1.Mock
         ),
       ) as _i3.CustomerRepository);
   @override
-  _i6.Future<_i4.RequestStatus<_i7.CustomerEntity>> execute(
+  _i7.Future<_i4.RequestStatus<_i8.CustomerEntity>> execute(
           _i10.EditCustomerParams? editCustomerParams) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [editCustomerParams],
         ),
-        returnValue: _i6.Future<_i4.RequestStatus<_i7.CustomerEntity>>.value(
-            _FakeRequestStatus_2<_i7.CustomerEntity>(
+        returnValue: _i7.Future<_i4.RequestStatus<_i8.CustomerEntity>>.value(
+            _FakeRequestStatus_2<_i8.CustomerEntity>(
           this,
           Invocation.method(
             #execute,
             [editCustomerParams],
           ),
         )),
-      ) as _i6.Future<_i4.RequestStatus<_i7.CustomerEntity>>);
+      ) as _i7.Future<_i4.RequestStatus<_i8.CustomerEntity>>);
 }
 
 /// A class which mocks [DeleteCustomerUseCase].
@@ -178,13 +185,13 @@ class MockDeleteCustomerUseCase extends _i1.Mock
         ),
       ) as _i3.CustomerRepository);
   @override
-  _i6.Future<_i4.RequestStatus<bool>> execute(int? customerID) =>
+  _i7.Future<_i4.RequestStatus<bool>> execute(int? customerID) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [customerID],
         ),
-        returnValue: _i6.Future<_i4.RequestStatus<bool>>.value(
+        returnValue: _i7.Future<_i4.RequestStatus<bool>>.value(
             _FakeRequestStatus_2<bool>(
           this,
           Invocation.method(
@@ -192,7 +199,7 @@ class MockDeleteCustomerUseCase extends _i1.Mock
             [customerID],
           ),
         )),
-      ) as _i6.Future<_i4.RequestStatus<bool>>);
+      ) as _i7.Future<_i4.RequestStatus<bool>>);
 }
 
 /// A class which mocks [GetCustomersUseCase].
@@ -213,20 +220,20 @@ class MockGetCustomersUseCase extends _i1.Mock
         ),
       ) as _i3.CustomerRepository);
   @override
-  _i6.Future<_i4.RequestStatus<List<_i7.CustomerEntity>>> execute() =>
+  _i7.Future<_i4.RequestStatus<List<_i8.CustomerEntity>>> execute() =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
         returnValue:
-            _i6.Future<_i4.RequestStatus<List<_i7.CustomerEntity>>>.value(
-                _FakeRequestStatus_2<List<_i7.CustomerEntity>>(
+            _i7.Future<_i4.RequestStatus<List<_i8.CustomerEntity>>>.value(
+                _FakeRequestStatus_2<List<_i8.CustomerEntity>>(
           this,
           Invocation.method(
             #execute,
             [],
           ),
         )),
-      ) as _i6.Future<_i4.RequestStatus<List<_i7.CustomerEntity>>>);
+      ) as _i7.Future<_i4.RequestStatus<List<_i8.CustomerEntity>>>);
 }

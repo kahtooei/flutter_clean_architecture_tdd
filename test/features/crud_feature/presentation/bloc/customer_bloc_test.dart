@@ -39,7 +39,14 @@ void main() {
       firstName: "Mohammad",
       lastName: "Kahtooei",
       dateOfBirth: DateTime.now(),
-      phoneNumber: "+989179647448",
+      phoneNumber: "00989179647448",
+      email: "m.kahtooei@gmail.com",
+      bankAccountNumber: "123654789");
+  final CustomerParams customerInvalidParams = CustomerParams(
+      firstName: "M",
+      lastName: "Kahtooei",
+      dateOfBirth: DateTime.now(),
+      phoneNumber: "+98",
       email: "m.kahtooei@gmail.com",
       bankAccountNumber: "123654789");
   final CustomerEntity customerEntity = CustomerEntity(
@@ -47,7 +54,7 @@ void main() {
       firstName: "Mohammad",
       lastName: "Kahtooei",
       dateOfBirth: DateTime.now(),
-      phoneNumber: "+989179647448",
+      phoneNumber: "00989179647448",
       email: "m.kahtooei@gmail.com",
       bankAccountNumber: "123654789");
 
@@ -67,8 +74,11 @@ void main() {
       when(createCustomer.execute(customerParams)).thenAnswer(
           (_) => Future.value(SuccessRequest<CustomerEntity>(customerEntity)));
 
-      when(inputValidation.isValid)
+      when(inputValidation.checkValidation(customerParams))
           .thenReturn(ParamsValidationStatus(status: true));
+
+      when(inputValidation.checkValidation(customerInvalidParams)).thenReturn(
+          ParamsValidationStatus(status: false, error: "invalid params"));
     });
     blocTest(
       "create new customer",
@@ -88,7 +98,17 @@ void main() {
       // await Future.delayed(const Duration(seconds: 5));
       verify(createCustomer.execute(customerParams));
       verify(getCustomers.execute());
-      verify(inputValidation.isValid);
+      verify(inputValidation.checkValidation(customerParams));
+    });
+
+    test("test error params validation", () async {
+      customerBloc
+          .add(CreateNewCustomerEvent(customerParams: customerInvalidParams));
+      await untilCalled(inputValidation.checkValidation(customerInvalidParams));
+      // await Future.delayed(const Duration(seconds: 2));
+      verify(inputValidation.checkValidation(customerInvalidParams));
+      expect(customerBloc.state.customerStatus,
+          FieldValidationErrorStatus("invalid params"));
     });
   });
 }
