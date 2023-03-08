@@ -21,9 +21,10 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
   final DeleteCustomerUseCase deleteCustomer;
   // Instance of InputValidator to validate customer params
   final InputValidation inputValidation;
-  // Constructor for the CustomerBloc class, which takes four parameters, instances of
-  // GetCustomersUseCase, CreateCustomersUseCase, EditCustomersUseCase, and DeleteCustomerUseCase.
-  // The initial state of the Bloc is set to CustomerLoadingStatus().
+
+  // Constructor for the CustomerBloc class, which takes five parameters, instances of
+  // InputValidation, GetCustomersUseCase, CreateCustomersUseCase, EditCustomersUseCase, and DeleteCustomerUseCase.
+  // The initial state of the Bloc is set to EmptyCustomerStatus().
   CustomerBloc(
     this.inputValidation,
     this.createCustomer,
