@@ -111,4 +111,37 @@ void main() {
           FieldValidationErrorStatus("invalid params"));
     });
   });
+
+//test delete customer event
+  group("delete customer bloc test", () {
+    setUp(() {
+      customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
+          deleteCustomer, getCustomers);
+      when(getCustomers.execute()).thenAnswer(
+          (_) => Future.value(SuccessRequest<List<CustomerEntity>>([])));
+
+      when(deleteCustomer.execute(1))
+          .thenAnswer((_) => Future.value(SuccessRequest<bool>(true)));
+    });
+
+    blocTest(
+      "delete customer",
+      build: () => customerBloc,
+      act: (CustomerBloc bloc) => bloc.add(
+        const DeleteCustomerEvent(customerID: 1),
+      ),
+      expect: () => [
+        CustomerState(customerStatus: CustomerLoadingStatus()),
+        CustomerState(customerStatus: CustomerCompletedStatus([]))
+      ],
+    );
+
+    test("test calling methods", () async {
+      customerBloc.add(const DeleteCustomerEvent(customerID: 1));
+      await untilCalled(getCustomers.execute());
+      // await Future.delayed(const Duration(seconds: 5));
+      verify(deleteCustomer.execute(1));
+      verify(getCustomers.execute());
+    });
+  });
 }
