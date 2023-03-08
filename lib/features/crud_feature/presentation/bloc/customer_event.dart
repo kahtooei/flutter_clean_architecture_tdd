@@ -20,3 +20,11 @@ class DeleteCustomerEvent extends CustomerEvent {
   @override
   List<Object?> get props => [customerID];
 }
+
+//Event to edit customer info
+class EditCustomerEvent extends CustomerEvent {
+  final EditCustomerParams editCustomerParams;
+  const EditCustomerEvent({required this.editCustomerParams});
+  @override
+  List<Object?> get props => [editCustomerParams];
+}

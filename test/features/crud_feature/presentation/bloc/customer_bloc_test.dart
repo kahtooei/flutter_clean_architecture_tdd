@@ -58,6 +58,11 @@ void main() {
       phoneNumber: "00989179647448",
       email: "m.kahtooei@gmail.com",
       bankAccountNumber: "123654789");
+  final EditCustomerParams editCustomerParams =
+      EditCustomerParams(customerID: 1, customerParams: customerParams);
+
+  final EditCustomerParams editCustomerInvalidParams =
+      EditCustomerParams(customerID: 1, customerParams: customerInvalidParams);
 
 //test initial state
   test("initial state is Empty", () {
@@ -153,22 +158,22 @@ void main() {
           deleteCustomer, getCustomers);
       when(getCustomers.execute()).thenAnswer((_) =>
           Future.value(SuccessRequest<List<CustomerEntity>>([customerEntity])));
-      when(editCustomer.execute(EditCustomerParams(
-              customerID: 1, customerParams: customerParams)))
-          .thenAnswer((_) =>
-              Future.value(SuccessRequest<CustomerEntity>(customerEntity)));
+      when(editCustomer.execute(editCustomerParams)).thenAnswer(
+          (_) => Future.value(SuccessRequest<CustomerEntity>(customerEntity)));
       when(inputValidation.checkValidation(customerParams))
           .thenReturn(ParamsValidationStatus(status: true));
 
-      when(inputValidation.checkValidation(customerInvalidParams)).thenReturn(
-          ParamsValidationStatus(status: false, error: "invalid params"));
+      when(inputValidation
+              .checkValidation(editCustomerInvalidParams.customerParams))
+          .thenReturn(
+              ParamsValidationStatus(status: false, error: "invalid params"));
     });
 
     blocTest(
       "edit customer",
       build: () => customerBloc,
-      act: (CustomerBloc bloc) => bloc.add(
-          EditCustomerEvent(customerID: 1, customerParams: customerParams)),
+      act: (CustomerBloc bloc) =>
+          bloc.add(EditCustomerEvent(editCustomerParams: editCustomerParams)),
       expect: () => [
         CustomerState(customerStatus: CustomerLoadingStatus()),
         CustomerState(customerStatus: CustomerCompletedStatus([customerEntity]))
@@ -176,21 +181,23 @@ void main() {
     );
 
     test("test calling methods", () async {
-      customerBloc.add(
-          EditCustomerEvent(customerID: 1, customerParams: customerParams));
+      customerBloc
+          .add(EditCustomerEvent(editCustomerParams: editCustomerParams));
       await untilCalled(getCustomers.execute());
       // await Future.delayed(const Duration(seconds: 5));
-      verify(createCustomer.execute(customerParams));
+      verify(editCustomer.execute(editCustomerParams));
       verify(getCustomers.execute());
       verify(inputValidation.checkValidation(customerParams));
     });
 
     test("test error params validation", () async {
       customerBloc.add(
-          EditCustomerEvent(customerID: 1, customerParams: customerParams));
-      await untilCalled(inputValidation.checkValidation(customerInvalidParams));
+          EditCustomerEvent(editCustomerParams: editCustomerInvalidParams));
+      await untilCalled(inputValidation
+          .checkValidation(editCustomerInvalidParams.customerParams));
       // await Future.delayed(const Duration(seconds: 2));
-      verify(inputValidation.checkValidation(customerInvalidParams));
+      verify(inputValidation
+          .checkValidation(editCustomerInvalidParams.customerParams));
       expect(customerBloc.state.customerStatus,
           FieldValidationErrorStatus("invalid params"));
     });

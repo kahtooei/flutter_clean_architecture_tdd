@@ -1,4 +1,6 @@
-class CustomerParams {
+import 'package:equatable/equatable.dart';
+
+class CustomerParams extends Equatable {
   final String firstName;
   final String lastName;
   final DateTime dateOfBirth;
@@ -27,4 +29,8 @@ class CustomerParams {
       'bankAccountNumber': bankAccountNumber,
     };
   }
+
+  @override
+  List<Object?> get props =>
+      [firstName, lastName, dateOfBirth, phoneNumber, email, bankAccountNumber];
 }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart';
+import 'package:flutter_clean_architecture_tdd/core/params/edit_customer_params.dart';
 import 'package:flutter_clean_architecture_tdd/core/resources/request_status.dart';
 import 'package:flutter_clean_architecture_tdd/core/utils/presentation/fields_validation.dart';
 import 'package:flutter_clean_architecture_tdd/features/crud_feature/domain/usecase/create_customer_usecase.dart';
@@ -68,6 +69,29 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
       } else {
         emit(state.copyWith(
             newStatus: CustomerErrorStatus(requestStatus.error!)));
+      }
+    });
+
+    // Listen to EditCustomerEvent and emit a new state with a new status of CustomerLoadingStatus().
+    // Then execute the editCustomer use case with the provided customerID and customerParams.
+    // If the request status is a SuccessRequest, call the getAllCustomers() method.
+    // Otherwise, emit a new state with a new status of CustomerErrorStatus with the error message.
+    on<EditCustomerEvent>((event, emit) async {
+      var validation = inputValidation
+          .checkValidation(event.editCustomerParams.customerParams);
+      if (validation.status) {
+        emit(state.copyWith(newStatus: CustomerLoadingStatus()));
+        RequestStatus requestStatus =
+            await editCustomer.execute(event.editCustomerParams);
+        if (requestStatus is SuccessRequest) {
+          getAllCustomers();
+        } else {
+          emit(state.copyWith(
+              newStatus: CustomerErrorStatus(requestStatus.error!)));
+        }
+      } else {
+        emit(state.copyWith(
+            newStatus: FieldValidationErrorStatus(validation.error!)));
       }
     });
   }
