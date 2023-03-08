@@ -30,6 +30,7 @@ main() {
     test("check valid parameters", () {
       var result = paramsValidation.isValid;
       expect(result.status, true);
+      expect(result.error, isA<Null>());
     });
   });
 
@@ -47,6 +48,7 @@ main() {
     test("check invalid name", () {
       var result = paramsValidation.isValid;
       expect(result.status, false);
+      expect(result.error, isA<String>());
     });
   });
 
@@ -64,6 +66,7 @@ main() {
     test("check invalid email", () {
       var result = paramsValidation.isValid;
       expect(result.status, false);
+      expect(result.error, isA<String>());
     });
   });
 
@@ -81,6 +84,7 @@ main() {
     test("check invalid phone", () {
       var result = paramsValidation.isValid;
       expect(result.status, false);
+      expect(result.error, isA<String>());
     });
   });
 
@@ -98,6 +102,7 @@ main() {
     test("check invalid account number", () {
       var result = paramsValidation.isValid;
       expect(result.status, false);
+      expect(result.error, isA<String>());
     });
   });
 }
