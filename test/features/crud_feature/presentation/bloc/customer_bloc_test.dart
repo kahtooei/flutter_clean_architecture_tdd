@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_clean_architecture_tdd/core/params/customer_params.dart';
 import 'package:flutter_clean_architecture_tdd/core/params/edit_customer_params.dart';
 import 'package:flutter_clean_architecture_tdd/core/resources/request_status.dart';
@@ -227,5 +228,97 @@ void main() {
       // await Future.delayed(const Duration(seconds: 5));
       verify(getCustomers.execute());
     });
+  });
+
+//test error in create new customer event
+  group("error in create new customer", () {
+    setUp(() {
+      customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
+          deleteCustomer, getCustomers);
+
+      when(createCustomer.execute(customerParams)).thenAnswer(
+          (_) => Future.value(FailedRequest<CustomerEntity>("error")));
+
+      when(inputValidation.checkValidation(customerParams))
+          .thenReturn(ParamsValidationStatus(status: true));
+    });
+    blocTest(
+      "error in create new customer",
+      build: () => customerBloc,
+      act: (CustomerBloc bloc) => bloc.add(
+        CreateNewCustomerEvent(customerParams: customerParams),
+      ),
+      expect: () => [
+        CustomerState(customerStatus: CustomerLoadingStatus()),
+        CustomerState(customerStatus: CustomerErrorStatus("error"))
+      ],
+    );
+  });
+
+  //test error in delete customer event
+  group("error in delete customer", () {
+    setUp(() {
+      customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
+          deleteCustomer, getCustomers);
+
+      when(deleteCustomer.execute(1))
+          .thenAnswer((_) => Future.value(FailedRequest<bool>("error")));
+    });
+    blocTest(
+      "error in delete customer",
+      build: () => customerBloc,
+      act: (CustomerBloc bloc) => bloc.add(
+        DeleteCustomerEvent(customerID: 1),
+      ),
+      expect: () => [
+        CustomerState(customerStatus: CustomerLoadingStatus()),
+        CustomerState(customerStatus: CustomerErrorStatus("error"))
+      ],
+    );
+  });
+
+//test error in edit customer info
+  group("error in edit customer", () {
+    setUp(() {
+      customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
+          deleteCustomer, getCustomers);
+
+      when(editCustomer.execute(editCustomerParams)).thenAnswer(
+          (_) => Future.value(FailedRequest<CustomerEntity>("error")));
+
+      when(inputValidation.checkValidation(customerParams))
+          .thenReturn(ParamsValidationStatus(status: true));
+    });
+    blocTest(
+      "error in update customer",
+      build: () => customerBloc,
+      act: (CustomerBloc bloc) => bloc.add(
+        EditCustomerEvent(editCustomerParams: editCustomerParams),
+      ),
+      expect: () => [
+        CustomerState(customerStatus: CustomerLoadingStatus()),
+        CustomerState(customerStatus: CustomerErrorStatus("error"))
+      ],
+    );
+  });
+
+//test error in get all customers event
+  group("error in get customers", () {
+    setUp(() {
+      customerBloc = CustomerBloc(inputValidation, createCustomer, editCustomer,
+          deleteCustomer, getCustomers);
+
+      when(getCustomers.execute()).thenAnswer(
+          (_) => Future.value(FailedRequest<List<CustomerEntity>>("error")));
+    });
+    blocTest(
+      "error in get customers",
+      build: () => customerBloc,
+      act: (CustomerBloc bloc) => bloc.add(GetAllCustomersEvent()),
+      expect: () => [
+        CustomerState(customerStatus: CustomerLoadingStatus()),
+        CustomerState(customerStatus: CustomerErrorStatus("error"))
+      ],
+    );
   });
 }
