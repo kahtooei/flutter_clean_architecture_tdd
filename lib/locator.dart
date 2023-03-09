@@ -13,7 +13,7 @@ GetIt getIt = GetIt.instance;
 
 setUp() {
   //call local data-source
-  getIt.registerSingleton<CustomerSqliteDB>(CustomerSqliteDB());
+  getIt.registerSingleton<CustomerLocalDataSource>(CustomerSqliteDB());
 
   //repository
   getIt.registerSingleton<CustomerRepository>(CustomerRepositoryImpl(getIt()));
